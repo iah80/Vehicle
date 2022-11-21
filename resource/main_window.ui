@@ -67,6 +67,13 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="btn_draw">
+         <property name="text">
+          <string>Draw</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>

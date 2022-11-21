@@ -20,13 +20,14 @@ class ThreadPlate(QtCore.QThread):
         count = 0
         while self.thread_active:
             if self.queue_detect.qsize() >= 1:
-                id,img = self.queue_detect.get()
+                id,img,speed = self.queue_detect.get()
+                print("speed plate: ",speed)
                 image = img.copy()
                 res = self.model.detect(image)
                 if len(res) > 0:
                     crop_plate = img[res[0][1]:res[0][3],res[0][0]:res[0][2]]
                     cv2.imwrite(f"image_crop_{count}.jpg",crop_plate)
                     count += 1
-                    if self.queue_recog.qsize() < 2:
-                        self.queue_recog.put(crop_plate)
+                    if self.queue_recog.qsize() < 1000:
+                        self.queue_recog.put([id,crop_plate,speed,img])
             QtCore.QThread.msleep(1)

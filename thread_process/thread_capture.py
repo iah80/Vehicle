@@ -59,7 +59,7 @@ class CaptureThread(QtCore.QThread):
                     break
                 if img is not None:
                     showimg = img
-                    if self.q.qsize() < 10:
+                    if self.q.qsize() < 1000:
                         self.q.put(showimg)
                 QtCore.QThread.msleep(1)
             else:

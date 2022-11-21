@@ -20,6 +20,13 @@
       <string/>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="btn_hiden">
+        <property name="text">
+         <string>Ẩn</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1" colspan="2">
        <widget class="QLineEdit" name="line_rtsp"/>
       </item>
@@ -43,13 +50,6 @@
         </property>
         <property name="text">
          <string>link rtsp</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="btn_hiden">
-        <property name="text">
-         <string>Ẩn</string>
         </property>
        </widget>
       </item>

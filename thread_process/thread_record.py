@@ -11,18 +11,17 @@ class RecordCar(QtCore.QThread):
         self._thread_activate = True
         self.root_path = r"E:\python\Nhom15\video_record"
 
-    def record(self,metadata):
-        for id in metadata.keys():
-            h,w,c = metadata[id][0].shape
-            name = f"video_record_{id}"
-            self.writer = cv2.VideoWriter(f'{self.root_path}/{name}.mp4',self.fourcc,(w,h))
-            for frame in metadata[id]:
-                self.writer.write(frame)
+    def record(self,metadata,id):
+        h,w,c = metadata[0].shape
+        name = f"violation_{id}"
+        self.writer = cv2.VideoWriter(f'{self.root_path}/{name}.mp4',self.fourcc,30,(w,h))
+        for frame in metadata:
+            self.writer.write(frame)
         self.writer.release()
 
     def run(self):
         while self._thread_activate:
             if self.queue_frame.qsize() > 0:
-                metadata = self.queue_frame.get()
-                self.record(metadata)
+                id,metadata = self.queue_frame.get()
+                self.record(metadata,id)
             QtCore.QThread.msleep(1)

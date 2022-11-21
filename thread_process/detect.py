@@ -19,6 +19,7 @@ class Detection:
         self.half = False  # use FP16 half-precision inference
         self.dnn = False  # use OpenCV DNN for ONNX inference
         self.model = "yolov5s.pt"
+        self.names = ""
 
     def set_property(self,conf_thresh,classes):
         self.conf_thresh = conf_thresh
@@ -27,10 +28,14 @@ class Detection:
     def setup_model(self, model):
         self.device = select_device(self.device)
         self.model = attempt_load(model, device=self.device)  # load FP32 model
+        self.names = self.model.module.names if hasattr(self.model, 'module') else self.model.names
         stride = int(self.model.stride.max())  # model stride
         self.imgsz = check_img_size(self.imgsz, s=stride)  # check img_size
         if self.half:
             self.model.half()  # to FP16
+
+    def getName(self):
+        return self.names
 
     def detect(self, image):
         bboxes = []
